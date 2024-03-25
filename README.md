@@ -6,12 +6,9 @@ I started exploring this in response to some questions about feasibility of deep
 ## Problem statement: heat equation
 The 1D heat equation is a partial differential equation that describes the distribution of heat in a system over time. The equation is given by:
 
-$$
-\frac{{\partial u(x, t)}}{{\partial t}} = \alpha(x) \frac{{\partial^2 u(x, t)}}{{\partial x^2}}
+$$\frac{\partial u(x, t)}{\partial t} = \D(x) \frac{\partial^2 u(x, t)}{\partial x^2}$$
 
-$$
-
-where $u(x, t)$ represents the temperature at position $x$ and time $t$, $α$ is the thermal diffusivity. For the case of this experiment we generally consider a temporally constant diffusivity, though it may vary in space. The domain of the system will be fixed to $x\in[0,1]$.  To complete the problem description we require boundary conditions at $x=0$ and $x=1$.
+where $u(x, t)$ represents the temperature at position $x$ and time $t$, $D$ is the thermal diffusivity. For the case of this experiment we generally consider a temporally constant diffusivity, though it may vary in space. The domain of the system will be fixed to $x\in[0,1]$.  To complete the problem description we require boundary conditions at $x=0$ and $x=1$.
 
 For the sake of simplicity we will tie the boundary conditions and form of the diffusivity function together, making it easy to generate random instances. To generate the diffusivity functions we simply sample a number of Gaussian distributions with random mean and variance terms which will be used as the diffusivity. When sampling more than a single Gaussian, the overal result is averaged for each point in the domain. The boundary conditions are set by the min and max of the diffusivity, so that $u(x=0)=min(\alpha)$ and $u(x=1)=max(\alpha)$.
 
@@ -19,4 +16,10 @@ We solve the heat equation via the Crank-Nicholson implicit method, with a times
 
 ## Experimental setup
 ### Basic setup for the "complete" inversion model
-To set up the baseline model we 
+To set up the baseline model we will use a simple 1 dimentionsl CNN with nothing special going on. The inverse model that we wish to construct is:
+
+$$
+D(x) \approx f(u(x))
+$$
+
+The learning process set up in the second notebook highlights the first attempt at this, and works quite well.
